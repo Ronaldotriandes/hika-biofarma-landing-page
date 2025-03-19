@@ -22,19 +22,20 @@
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #2a2c39; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #ef6603; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #0385ef; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+  --blue-hika-color: #55A9B6;
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
   --nav-color: #ffffff;  /* The default color of the main navmenu links */
-  --nav-hover-color: #ef6603; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-hover-color: #1D1D1D; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #ffffff; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #ef6603; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-hover-color: #a2ebdf; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -184,6 +185,9 @@ h6 {
   border-radius: 8px;
   box-shadow: 0 5px 25px rgba(0,0,0,0.1);
 }
+.banner-container {
+  min-width: 60rem;
+}
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
@@ -295,6 +299,9 @@ h6 {
 }
 /* Add this to your CSS */
 @media (max-width: 1199px) {
+  .banner-container{
+    min-width: fit-content
+  }
   .banner-image {
     min-height: 337px;
     min-width: 100%;
@@ -359,7 +366,6 @@ h6 {
   .navmenu ul {
     margin-left: auto !important;
     height: 50%;
-    width: 50%;
     background-color: #1D1D1D !important; /* Semi-transparent background */
     backdrop-filter: blur(10px) !important; /* Blur effect */
     -webkit-backdrop-filter: blur(10px) !important; /* For Safari */
@@ -510,8 +516,8 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent-color);
-  color: var(--contrast-color);
+  background: var(--blue-hika-color);
+  color: black;
   line-height: 1;
   margin: 0 4px;
   border-radius: 50%;
@@ -539,7 +545,7 @@ h6 {
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
-#preloader {
+/* #preloader {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -561,7 +567,7 @@ h6 {
 
 #preloader:after {
   animation-delay: -0.5s;
-}
+} */
 
 @keyframes animate-preloader {
   0% {
@@ -760,7 +766,7 @@ section,
 }
 
 .hero p {
-  max-width: 80%;
+  max-width: 90%;
   animation-delay: 0.4s;
   margin: 0 auto 30px auto;
 }
@@ -790,20 +796,17 @@ section,
   line-height: 1;
   margin: 10px;
   animation-delay: 0.8s;
-  color: var(--default-color);
-  border: 2px solid var(--accent-color);
+  color:  #ffffff;
+  border: 2px solid var(--blue-hika-color);
 }
 
 .hero .btn-get-started:hover {
-  background: var(--accent-color);
+  background: var(--blue-hika-color);
   color: var(--contrast-color);
   text-decoration: none;
 }
 
 @media (min-width: 1024px) {
-  .hero p {
-    max-width: 60%;
-  }
 
   .hero .carousel-control-prev,
   .hero .carousel-control-next {
@@ -831,21 +834,21 @@ section,
 .hero .wave1 use {
   animation: move-forever1 10s linear infinite;
   animation-delay: -2s;
-  fill: var(--default-color);
+  fill: var(--blue-hika-color);
   opacity: 0.6;
 }
 
 .hero .wave2 use {
   animation: move-forever2 8s linear infinite;
   animation-delay: -2s;
-  fill: var(--default-color);
+  fill: var(--blue-hika-color);
   opacity: 0.4;
 }
 
 .hero .wave3 use {
   animation: move-forever3 6s linear infinite;
   animation-delay: -2s;
-  fill: var(--default-color);
+  fill: var(--blue-hika-color);
 }
 
 @keyframes move-forever1 {
@@ -1575,8 +1578,11 @@ section,
 /*--------------------------------------------------------------
 # Recent Posts Section
 --------------------------------------------------------------*/
+.recent-posts {
+  color: white
+}
 .recent-posts article {
-  background: var(--surface-color);
+  background: #303134;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 30px;
   height: 100%;
@@ -1592,7 +1598,7 @@ section,
 
 .recent-posts .post-category {
   font-size: 16px;
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  color:white;
   margin-bottom: 10px;
 }
 
@@ -1601,10 +1607,11 @@ section,
   font-weight: 700;
   padding: 0;
   margin: 0 0 20px 0;
+  color: white
 }
 
 .recent-posts .title a {
-  color: var(--heading-color);
+  color: white;
   transition: 0.3s;
 }
 
@@ -2029,7 +2036,7 @@ section,
 # Blog Posts Section
 --------------------------------------------------------------*/
 .blog-posts article {
-  background-color: var(--surface-color);
+  background-color: #303134;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 30px;
   height: 100%;
@@ -2132,7 +2139,7 @@ section,
 }
 
 .blog-details .article {
-  background-color: var(--surface-color);
+  background-color: #303134;
   padding: 30px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
@@ -2344,7 +2351,7 @@ section,
 }
 
 .comment-form form {
-  background-color: var(--surface-color);
+  background-color: #303134;
   margin-top: 30px;
   padding: 30px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -2616,4 +2623,120 @@ section,
   padding-left: 5px;
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
+}
+
+/* Style for left-side dropdown in desktop view */
+.header-dropdown-mob {
+  display: none;
+}
+.left-dropdown {
+  position: relative;
+}
+
+.left-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  min-width: 180px;
+  padding: 10px 0;
+  margin: 0;
+  list-style: none;
+  background-color: #1D1D1D !important; 
+  backdrop-filter: blur(10px) !important; 
+  -webkit-backdrop-filter: blur(10px) !important;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+  transition: all 0.3s ease;
+}
+
+.left-dropdown:hover .left-dropdown-menu {
+  display: block;
+}
+
+.left-dropdown-menu li {
+  padding: 8px 20px;
+  transition: 0.3s;
+}
+
+.left-dropdown-menu li a {
+  display: block;
+  color: #ffffff !important;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.left-dropdown-menu li:hover > a {
+  color: #55A9B6 !important;
+}
+
+
+/* In mobile view, reset position to make it work with mobile navigation */
+@media (max-width: 1199px) {
+  .header-dropdown-mob {
+    display: block;
+  }
+  .left-dropdown {
+    display: none;
+  }
+  .left-dropdown-menu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    padding-left: 15px;
+  }
+  
+  .left-dropdown.dropdown-active .left-dropdown-menu {
+    display: block;
+  }
+}
+#preloader-new {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-new-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+}
+
+.preloader-logo {
+  position: absolute;
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: contain;
+  z-index: 2;
+}
+
+/* Add a fade out animation for when page is loaded */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+#preloader-new.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes rotate {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+
+.preloader-new-container svg {
+animation: rotate 2s linear infinite;
 }

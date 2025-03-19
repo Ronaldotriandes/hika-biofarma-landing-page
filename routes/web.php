@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', 'BeritaController@index')->name('landing-age');
+
+Route::get('/berita/{kategori}/{slug}', 'BeritaController@getDetailBerita')->name('getDetailBerita');
