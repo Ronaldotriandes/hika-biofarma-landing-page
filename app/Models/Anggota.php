@@ -4,8 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Anggota extends Model
+class Anggota extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->setTimezone('Asia/Jakarta');
+    }
 }

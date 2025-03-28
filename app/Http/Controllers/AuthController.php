@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Berita;
+use App\Models\Anggota;
 use Illuminate\Support\Facades\Auth;
-
-class BeritaController extends Controller
+use Illuminate\Support\Facades\Session;
+class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +16,40 @@ class BeritaController extends Controller
     public function index()
     {
         //
-        $berita = Berita::with(['anggota','kategori_berita'])->get();
-        return view('Landing-Page', ['beritas'=>$berita]);
     }
-    public function getDetailBerita($kategori, $slug)
+
+    public function authenticate(Request $request)
     {
-        //
-        $berita = Berita::with('komentars')->where('slug', $slug)->first();
-        return view('Berita.Index',['berita'=>$berita]);
+            $credential = $request->validate([
+                'email'=>'required|email:rfc,dns',
+                'password'=>'required',
+            ]);
+
+            $user = Anggota::where('email_pribadi', $credential['email'])
+                    ->whereNull('deleted_at')
+                    ->first();
+
+
+            if (!$user || !Auth::attempt(['email_pribadi' => $credential['email'], 'password' => $credential['password']])) {
+                return back()->with('loginError','Email, password salah, atau akses tidak diizinkan.');
+            }
+
+            $request->session()->regenerate();
+
+            return back()->with('success','Login berhasil');
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function logout()
     {
         //
+        Auth::logout();
+        Session::flush();
+        return back()->with(['success' => 'Logout berhasil!']);
     }
 
     /**

@@ -35,12 +35,14 @@ return [
     |
     */
 
+    
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'anggotas',
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -58,13 +60,11 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
     'providers' => [
-        'users' => [
+        'anggotas' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Anggota::class,
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

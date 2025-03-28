@@ -17,5 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/', 'BeritaController@index')->name('landing-age');
+Route::post('/login', 'AuthController@authenticate')->name('login');
+Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::get('/berita/{kategori}/{slug}', 'BeritaController@getDetailBerita')->name('getDetailBerita');

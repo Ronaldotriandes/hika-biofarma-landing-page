@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Komentar;
 
 use Livewire\Component;
 use App\Models\Komentar;
-
+use Illuminate\Support\Facades\Auth;
 class ListKomentar extends Component
 {
     public $komentars;
@@ -15,30 +15,36 @@ class ListKomentar extends Component
     public function mount($idBerita) {
         $this->beritaId = $idBerita;
         $this->loadComments();
+         // Initialize replyText array for each comment
+    foreach($this->komentars as $komentar) {
+        $this->replyText[$komentar->id] = '';
+    }
+    
 
     }
     public function render()
     {
         return view('livewire.komentar.list-komentar',[
-            'total_komentar' => $this->komentars->count()
+            'total_komentar' => $this->komentars->count(),
         ] );
     }
     public function loadComments()
     {
         $this->komentars = Komentar::where('id_berita', $this->beritaId)
+            ->whereNull('parent')
             ->with(['anggota','childs'])
             ->orderBy('created_at', 'desc')
             ->get();
         $this->total_komentar = $this->komentars->count();
     }
 
-    public function createComment()
+    public function createComment($beritaId)
     {
         // $this->validate();
         $new = new Komentar();
-        $new->id_berita = $this->beritaId;
-        $new->id_anggota = 1;
-        $new->parent = 1;
+        $new->id_berita = $beritaId;
+        $new->id_anggota = Auth::user()->id;
+        $new->parent = null;
         $new->komentar = $this->commentText;
         $new->save();
       
@@ -52,7 +58,7 @@ class ListKomentar extends Component
         // Show a success message
         session()->flash('message', 'Comment added successfully!');
     }
-    public function createReply($parentId)
+    public function createReply($beritaId, $parentId)
     {
         // $this->validate([
         //     'replyText.'.$parentId => 'required|min:3',
@@ -60,11 +66,10 @@ class ListKomentar extends Component
         //     'replyText.'.$parentId.'.required' => 'The reply cannot be empty.',
         //     'replyText.'.$parentId.'.min' => 'The reply must be at least 3 characters.',
         // ]);
-    
  
         $new = new Komentar();
-        $new->id_berita = $this->beritaId;
-        $new->id_anggota = 1;
+        $new->id_berita = $beritaId;
+        $new->id_anggota = Auth::user()->id;
         $new->parent = $parentId;
         $new->komentar = $this->replyText[$parentId];
         $new->save();

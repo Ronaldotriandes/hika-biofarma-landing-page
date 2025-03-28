@@ -50,16 +50,19 @@
         </a>
         <nav id="navmenu" class="navmenu">
             <ul style="justify-items: flex-end;">
-            <li class="header-dropdown-mob" style="padding-right:20px"><img src="/images/ilyas Foto 1.png" alt="User" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover; margin-right: 5px;"></li>
-            <li class="header-dropdown-mob"><a href="#">Ilyas Rasyid Alfattah</a></li>
-            <li  class="header-dropdown-mob"><a href="#" style="color:#55A9B6">Member</a></li>
+            @if(Auth::check())
+            <li class="header-dropdown-mob" style="padding-right:20px; padding-left:20px"><img src="/images/ilyas Foto 1.png" alt="User" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover; margin-right: 5px;"></li>
+            <li class="header-dropdown-mob"><a href="#">{{Auth::user()->nama_lengkap}}</a></li>
+            <li  class="header-dropdown-mob"><a href="#" style="color:#55A9B6">{{Auth::user()->role}}</a></li>
+            @endif
             <li><a href="#">Home</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Settings</a></li>
+            @if(Auth::check())
                 <li class="dropdown left-dropdown">
                     <a href="#"  class="" >
                     <div style="display:flex; align-items:center" >
-                            <span style=" margin-right:10px">Ilyas Rasyid Alfattah</span>
+                            <span style=" margin-right:10px">{{Auth::user()->nama_lengkap}}</span>
                             <img src="/images/ilyas Foto 1.png" alt="User" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
                             <i class="bi bi-chevron-down toggle-dropdown ms-1"></i>
                         </div>
@@ -69,9 +72,12 @@
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Profile</a></li>
                         <li><a href="#">Settings</a></li>
-                        <li><a href="#">Log Out</a></li>
+                        <li><a href="{{ route('logout') }}">Log Out</a></li>
                     </ul>
                 </li>
+            @else
+            <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+            @endif
                 <!-- Convert these items to a dropdown -->
             </ul>
   <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -79,6 +85,34 @@
 
     </div>
   </header>
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
 
 
   <main class="main">

@@ -4,7 +4,8 @@
 
     <div class="page-title dark-background" style="height: 200px;">
       <div class="container position-relative">
-        <h2>Selamat datang di portal berita HIKA Biofarma</h2>
+        <h3><span id="welcome-text"></span></h3>
+        <!-- <h2>Selamat datang di portal berita HIKA Biofarma</h2> -->
         <!-- <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p> -->
       </div>
     </div><!-- End Page Title -->
@@ -18,7 +19,7 @@
         <div class="carousel-item {{$loop->index == 0 ? 'active' : ''}}">
           <div class="carousel-container">
           <div class="text-center mb-4 banner-container">
-            <img src="/images/serikatjuang.jpg" alt="Slide Image" class="img-fluid animate__animated animate__fadeIn banner-image" >
+            <img src="{{ config('services.cms.url') }}/images/berita/{{$ber->banner_image}}" alt="Slide Image" class="img-fluid animate__animated animate__fadeIn banner-image" >
             </div>
             <h2 class="animate__animated animate__fadeInDown" style="margin-bottom:0px">{{$ber->judul}}</h2>
             <!-- <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> -->
@@ -74,7 +75,7 @@
             <article>
 
               <div class="post-img">
-                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
+                <img src="{{ config('services.cms.url') }}/images/berita/{{$ber->banner_image}}" alt="" class="img-fluid">
               </div>
 
               <!-- <p class="post-category">Politics</p> -->
@@ -176,4 +177,21 @@
     </section><!-- /Contact Section -->
 
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var typed = new Typed('#welcome-text', {
+            strings: [
+                'Selamat Datang di Portal Berita HIKA Biofarma'
+            ],
+            typeSpeed: 50,        
+            backSpeed: 30,     
+            backDelay: 1500,     
+            startDelay: 500,      
+            loop: true,        
+            showCursor: true,
+            cursorChar: '|'
+        });
+    });
+</script>
 @endsection
