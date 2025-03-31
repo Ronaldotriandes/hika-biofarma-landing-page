@@ -729,7 +729,7 @@ section,
   margin: 0;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  color: color-mix(in srgb, var(--blue-hika-color), transparent 50%);
   position: relative;
 }
 
@@ -738,7 +738,7 @@ section,
   width: 120px;
   height: 1px;
   display: inline-block;
-  background: var(--accent-color);
+  background: var(--heading-color);
   margin: 4px 10px;
 }
 
