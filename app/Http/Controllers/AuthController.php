@@ -20,23 +20,29 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
+        try {
             $credential = $request->validate([
                 'email'=>'required|email:rfc,dns',
                 'password'=>'required',
             ]);
 
-            $user = Anggota::where('email_pribadi', $credential['email'])
+            $credential['email'] = hash('sha256', $credential['email']);
+            $user = Anggota::where('hash_email', $credential['email'])
                     ->whereNull('deleted_at')
+                    ->where('is_active',true)
                     ->first();
-
-
-            if (!$user || !Auth::attempt(['email_pribadi' => $credential['email'], 'password' => $credential['password']])) {
-                return back()->with('loginError','Email, password salah, atau akses tidak diizinkan.');
+            if (!$user || !Auth::attempt(['hash_email' => $credential['email'], 'password' => $credential['password']])) {
+                return back()->with('loginError','Email atau password salah, atau akses tidak diizinkan.');
             }
 
             $request->session()->regenerate();
-
             return back()->with('success','Login berhasil');
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+         
+
     }
 
     /**
