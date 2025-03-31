@@ -55,8 +55,8 @@
             <li class="header-dropdown-mob"><a href="#">{{Auth::user()->nama_lengkap}}</a></li>
             <li  class="header-dropdown-mob"><a href="#" style="color:#55A9B6">{{Auth::user()->role}}</a></li>
             @endif
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
             <li><a href="#">Settings</a></li>
             @if(Auth::check())
                 <li class="dropdown left-dropdown">
@@ -69,8 +69,8 @@
                         
                     </a>
                     <ul class="left-dropdown-menu">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/profile">Profile</a></li>
                         <li><a href="#">Settings</a></li>
                         <li><a href="{{ route('logout') }}">Log Out</a></li>
                     </ul>
