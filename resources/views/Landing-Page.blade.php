@@ -2,9 +2,12 @@
 @extends('Layout/Master')
     @section('content')
 
-    <div class="page-title dark-background" style="height: 200px;">
+    <div class="page-title " style="height: 200px;">
       <div class="container position-relative">
         <h3><span id="welcome-text"></span></h3>
+        @if(!Auth::check())
+        <h4 style="font-weight: 600"><span><a href="/form-registrasi"><color style="color:#55A9B6">Join</color></a> HIKA Biofarma sekarang juga</span></h4>
+        @endif
         <!-- <h2>Selamat datang di portal berita HIKA Biofarma</h2> -->
         <!-- <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p> -->
       </div>
@@ -180,9 +183,13 @@
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      let types = 'Selamat Datang di Portal Berita HIKA Biofarma'
+      @if(Auth::check())
+      types = 'Selamat datang <span style="color: #55A9B6">{{Auth::user()->nama_lengkap}}</span> di portal Berita HIKA Biofarma'
+      @endif
         var typed = new Typed('#welcome-text', {
             strings: [
-                'Selamat Datang di Portal Berita HIKA Biofarma'
+               types
             ],
             typeSpeed: 50,        
             backSpeed: 30,     
@@ -194,4 +201,5 @@
         });
     });
 </script>
+
 @endsection
