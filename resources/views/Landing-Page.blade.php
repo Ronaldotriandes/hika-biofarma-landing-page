@@ -13,7 +13,7 @@
       </div>
     </div><!-- End Page Title -->
     <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
+    <section id="hero" class="hero section dark-background" style="background-color:rgba(42, 44, 57, 0.9)">
 
       <div id="hero-carousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
 
