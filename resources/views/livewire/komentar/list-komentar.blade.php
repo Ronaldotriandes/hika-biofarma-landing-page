@@ -16,7 +16,7 @@
 </style>
 <div class="container ">
     <div class="custom-box-shadow" style="padding:20px"> 
-        <h4 class="comments-count">{{$total_komentar}} komentar</h4>
+        <h4 class="comments-count">{{$total_komentar}} komentar </h4>
         @foreach ($komentars as $komentar)
                 <div id="comment-{{$loop->index}}" class="comment">
                     <div class="d-flex">
@@ -60,7 +60,7 @@
                         <form wire:submit.prevent="createReply({{$beritaId}}, {{$komentar->id}})" class="reply-form">
                             <div class="form-group mb-2">
                                 <textarea class="form-control" 
-                                    wire:model.debounce.500ms="replyText.{{$komentar->id}}" 
+                                    wire:model.debounce.2000ms="replyText.{{$komentar->id}}" 
                                     x-data
                                     x-on:input="$el.closest('.reply-content').style.display = 'block'"
                                     rows="3" 

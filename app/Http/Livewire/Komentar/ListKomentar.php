@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Komentar;
 
 use Livewire\Component;
 use App\Models\Komentar;
+use App\Models\KataSensor;
 use Illuminate\Support\Facades\Auth;
 class ListKomentar extends Component
 {
@@ -11,11 +12,10 @@ class ListKomentar extends Component
     public $commentText;
     public $beritaId;
     public $replyText = [];
-
+    public $kata_sensor = [];
     public function mount($idBerita) {
         $this->beritaId = $idBerita;
         $this->loadComments();
-         // Initialize replyText array for each comment
     foreach($this->komentars as $komentar) {
         $this->replyText[$komentar->id] = '';
     }
@@ -35,6 +35,15 @@ class ListKomentar extends Component
             ->with(['anggota','childs'])
             ->orderBy('created_at', 'desc')
             ->get();
+        $katasensor= KataSensor::pluck('kata');
+        foreach($this->komentars as $komentar) {
+            $komentar->komentar = $this->censorWords($komentar->komentar, $katasensor);
+            
+            foreach($komentar->childs as $child) {
+                $child->komentar = $this->censorWords($child->komentar, $katasensor);
+            }
+        }
+        
         $this->total_komentar = $this->komentars->count();
     }
 
@@ -49,13 +58,10 @@ class ListKomentar extends Component
         $new->save();
       
 
-        // Reset the form
         $this->reset('commentText');
         
-        // Refresh the comments list
         $this->loadComments();
         
-        // Show a success message
         session()->flash('message', 'Comment added successfully!');
     }
     public function createReply($beritaId, $parentId)
@@ -74,19 +80,22 @@ class ListKomentar extends Component
         $new->komentar = $this->replyText[$parentId];
         $new->save();
       
-        // Reset the reply form
         $this->replyText[$parentId] = '';
         
         $this->loadComments();
 
-        // Refresh the comments list
         $this->emit('refreshComments');
         
-        // Show a success message
         session()->flash('message', 'Reply added successfully!');
         
-        // This will trigger JavaScript to hide the tooltip
         $this->dispatchBrowserEvent('replySubmitted', ['parentId' => $parentId]);
     }
-    
+    private function censorWords($text, $sensorWords) 
+{
+    foreach($sensorWords as $word) {
+        $stars = str_repeat('*', strlen($word));
+        $text = str_ireplace($word, $stars, $text);
+    }
+    return $text;
+}
 }
