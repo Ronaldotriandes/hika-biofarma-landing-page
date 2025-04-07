@@ -9,17 +9,18 @@
 }
 
 .tooltip-reply {
-  position: absolute;
-  right: 0;
-  top: 30px;
-  width: 100% !important;
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 100;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    width: 100% !important;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000; /* Add this to ensure tooltip stays on top */
 }
+
 </style>
 
     <div class="container">
@@ -41,40 +42,19 @@
 
                 <div class="meta-top">
                   <ul>
-                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2020-01-01">{{  Carbon\Carbon::parse($berita->created_at)->format('d-m-Y')}}</time></a></li>
-                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">{{count($berita->komentars)}} komentar</a></li>
+                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time datetime="2020-01-01">{{  Carbon\Carbon::parse($berita->created_at)->format('d-m-Y')}}</time></li>
+                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> {{count($berita->komentars)}} komentar</li>
                   </ul>
-                </div><!-- End meta top -->
+                </div>
 
                 <div class="content">
                 {!! $berita->konten !!}
-
-                </div><!-- End post content -->
-
-                <!-- <div class="meta-bottom">
-                  <i class="bi bi-folder"></i>
-                  <ul class="cats">
-                    <li><a href="#">Business</a></li>
-                  </ul>
-
-                  <i class="bi bi-tags"></i>
-                  <ul class="tags">
-                    <li><a href="#">Creative</a></li>
-                    <li><a href="#">Tips</a></li>
-                    <li><a href="#">Marketing</a></li>
-                  </ul>
-                </div> -->
-                <!-- End meta bottom -->
-
+                <livewire:berita.likes :databerita="$berita->id" />
+                </div>
               </article>
-
             </div>
-          </section><!-- /Blog Details Section -->
-
+          </section>
         <livewire:komentar.list-komentar :idBerita="$berita->id" />
-
-      
-
         </div>
       </div>
     </div>

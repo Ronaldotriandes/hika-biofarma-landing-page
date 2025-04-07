@@ -18,18 +18,24 @@
       <div id="hero-carousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
 
         <!-- Slide 1 -->
+        @php $firstItem = true; @endphp
         @foreach($beritas as $ber)
-        <div class="carousel-item {{$loop->index == 0 ? 'active' : ''}}">
-          <div class="carousel-container">
-          <div class="text-center mb-4 banner-container">
-            <img src="{{ config('services.cms.url') }}/images/berita/{{$ber->banner_image}}" alt="Slide Image" class="img-fluid animate__animated animate__fadeIn banner-image" >
-            </div>
-            <h2 class="animate__animated animate__fadeInDown" style="margin-bottom:0px">{{$ber->judul}}</h2>
-            <!-- <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> -->
-            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
-          </div>
-        </div>
-         @endforeach
+            @if($ber->is_publish == 1 && 
+                ((!Auth::check() && $ber->is_publish_member== 0) || 
+                (Auth::check() && $ber->is_publish_member== 1)))
+                <div class="carousel-item {{$firstItem ? 'active' : ''}}">
+                    <div class="carousel-container">
+                        <div class="text-center mb-4 banner-container">
+                            <img src="{{ config('services.cms.url') }}/images/berita/{{$ber->banner_image}}" alt="Slide Image" class="img-fluid animate__animated animate__fadeIn banner-image">
+                        </div>
+                        <h2 class="animate__animated animate__fadeInDown" style="margin-bottom:0px">{{$ber->judul}}</h2>
+                        <a href="{{ route('getDetailBerita', ['kategori' => $ber->kategori_berita, 'slug' => $ber->slug]) }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                    </div>
+                </div>
+                @php $firstItem = false; @endphp
+            @endif
+        @endforeach
+
 
 
         <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
@@ -74,6 +80,9 @@
         <div class="row gy-4">
 
             @foreach($beritas as $ber)
+              @if($ber->is_publish == 1 && 
+                  ((!Auth::check() && $ber->is_publish_member== 0) || 
+                  (Auth::check() && $ber->is_publish_member== 1)))
             <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <article>
 
@@ -92,7 +101,8 @@
 
             </article>
           </div><!-- End post list item -->
-            @endforeach
+            @endif
+          @endforeach
 
 
         </div><!-- End recent posts list -->

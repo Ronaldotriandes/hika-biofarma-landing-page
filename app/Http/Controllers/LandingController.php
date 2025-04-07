@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Anggota;
 
 class LandingController extends Controller
 {
@@ -20,7 +21,8 @@ class LandingController extends Controller
     public function pengurushika()
     {
         //
-        return view('Pengurus-Hika');
+        $pengurus = Anggota::with('strukturOrganisasi:id,nama_jabatan')->whereNotNull('id_struktur_organisasi')->orderBy('id', 'asc')->get();
+        return view('Pengurus-Hika', ['pengurus' => $pengurus]);
     }
 
     public function formregistrasi()

@@ -23,6 +23,9 @@ class BeritaController extends Controller
     {
         //
         $berita = Berita::with('komentars')->where('slug', $slug)->first();
+        $berita->dibaca = $berita->dibaca + 1;
+        $berita->save();
+    
         return view('Berita.Index',['berita'=>$berita]);
     }
     /**

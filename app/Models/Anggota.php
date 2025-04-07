@@ -16,4 +16,7 @@ class Anggota extends Authenticatable
     {
         return Carbon::parse($value)->setTimezone('Asia/Jakarta');
     }
+    public function strukturOrganisasi() {
+        return $this->belongsTo(StrukturOrganisasi::class, 'id_struktur_organisasi');
+    }
 }
