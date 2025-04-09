@@ -28,6 +28,11 @@ class BeritaController extends Controller
     
         return view('Berita.Index',['berita'=>$berita]);
     }
+    public function getKategoriBerita($kategori)
+    {
+        //
+        return view('Berita.Berita-Kategori');
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -67,108 +67,31 @@
 
 
     <!-- Recent Posts Section -->
-    <section id="recent-posts" class="recent-posts section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Selengkapnya ... </h2>
-        <p>Info Berita<br></p>
-      </div><!-- End Section Title -->
+    <livewire:berita.list-berita kategori='All' limit='3'/>
+    <livewire:berita.list-berita kategori='Sosial'/>
 
-      <div class="container">
-
-        <div class="row gy-4">
-
-            @foreach($beritas as $ber)
-              @if($ber->is_publish == 1 && 
-                  ((!Auth::check() && $ber->is_publish_member== 0) || 
-                  (Auth::check() && $ber->is_publish_member== 1)))
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <article>
-
-              <div class="post-img">
-                <img src="{{ config('services.cms.url') }}/images/berita/{{$ber->banner_image}}" alt="" class="img-fluid">
-              </div>
-
-              <!-- <p class="post-category">Politics</p> -->
-
-              <h2 class="title">
-                <a href="{{ url('/berita/'.$ber->kategori_berita->nama_kategori.'/'.$ber->slug) }}">{{$ber->judul}}</a>
-              </h2>
-              <p class="post-category">Baca Selengkapnya ...</p>
-
-             
-
-            </article>
-          </div><!-- End post list item -->
-            @endif
-          @endforeach
-
-
-        </div><!-- End recent posts list -->
-
-      </div>
-
-    </section><!-- /Recent Posts Section -->
 
     <!-- Contact Section -->
+     @if(Auth::check())
     <section id="contact" class="contact section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Contact Us</p>
+        <h2>Aspirasi</h2>
+        <p>Kotak Aspirasi</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade" data-aos-delay="100">
 
         <div class="row gy-4">
-
-          <div class="col-lg-4">
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-              <i class="bi bi-geo-alt flex-shrink-0"></i>
-              <div>
-                <h3>Address</h3>
-                <p>A108 Adam Street, New York, NY 535022</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-telephone flex-shrink-0"></i>
-              <div>
-                <h3>Call Us</h3>
-                <p>+1 5589 55488 55</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h3>Email Us</h3>
-                <p>info@example.com</p>
-              </div>
-            </div><!-- End Info Item -->
-
-          </div>
-
-          <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-8">
+            <form action="{{ route('aspirasi') }}" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              @csrf
               <div class="row gy-4">
 
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required="" name="aspirasi"></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
@@ -183,12 +106,18 @@
             </form>
           </div><!-- End Contact Form -->
 
+          <div class="col-lg-4">
+            <img src="/images/aspirasi.png" alt="Aspirasi" class="img-fluid" style="width: 50%; height: auto; object-fit: cover;">
+
+          </div>
+
+
         </div>
 
       </div>
 
     </section><!-- /Contact Section -->
-
+    @endif
   </main>
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script>

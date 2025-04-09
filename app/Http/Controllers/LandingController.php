@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anggota;
+use App\Models\Aspirasi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LandingController extends Controller
 {
@@ -12,15 +15,19 @@ class LandingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function profileHika()
+    {
+        //
+        return view('Profile-Hika');
+    }
     public function profile()
     {
         //
-        return view('Profile');
+        $anggota = Anggota::where('id', Auth::user()->id)->first();
+        return view('Profile', ['anggota' => $anggota]);
     }
-
     public function pengurushika()
     {
-        //
         $pengurus = Anggota::with('strukturOrganisasi:id,nama_jabatan')->whereNotNull('id_struktur_organisasi')->orderBy('id', 'asc')->get();
         return view('Pengurus-Hika', ['pengurus' => $pengurus]);
     }
@@ -29,6 +36,17 @@ class LandingController extends Controller
     {
         //
         return view('Form-Registrasi');
+    }
+
+    public function aspirasi(Request $request)
+    {
+        //
+        Aspirasi::create([
+            'aspirasi' => $request->message,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return redirect()->back()->with('success', 'Aspirasi berhasil disimpan.');
     }
     /**
      * Show the form for creating a new resource.

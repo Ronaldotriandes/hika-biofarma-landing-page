@@ -21,7 +21,11 @@ Route::post('/login', 'AuthController@authenticate')->name('login');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::get('/berita/{kategori}/{slug}', 'BeritaController@getDetailBerita')->name('getDetailBerita');
+Route::get('/berita/{kategori}', 'BeritaController@getKategoriBerita')->name('getKategoriBerita');
 
-Route::get('/profile', 'LandingController@profile')->name('profile');
+Route::post('/aspirasi', 'LandingController@aspirasi')->name('aspirasi')->middleware('auth');
+Route::get('/profile-hika', 'LandingController@profileHika')->name('profile-hika');
+Route::get('/profile', 'LandingController@profile')->name('profile')->middleware('auth');
+
 Route::get('/pengurus-hika', 'LandingController@pengurusHika')->name('pengurus-hika');
 Route::get('/form-registrasi', 'LandingController@formregistrasi')->name('form-registrasi');

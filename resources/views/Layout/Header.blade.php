@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Selecao Bootstrap Template</title>
+  <title>Hika Biofarma</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/images/logo hika.png" rel="icon">
+  <link href="/images/logo hika.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -56,7 +56,7 @@
             <li  class="header-dropdown-mob"><a href="#" style="color:#55A9B6">{{Auth::user()->role}}</a></li>
             @endif
             <li><a href="/">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
+            <li><a href="/profile-hika">Profile HIKA</a></li>
             <li><a href="#">Settings</a></li>
             @if(Auth::check())
                 <li class="dropdown left-dropdown">
