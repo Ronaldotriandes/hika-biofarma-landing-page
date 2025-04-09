@@ -7,6 +7,7 @@ use App\Models\Anggota;
 use App\Models\Aspirasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class LandingController extends Controller
 {
@@ -48,6 +49,37 @@ class LandingController extends Controller
 
         return redirect()->back()->with('success', 'Aspirasi berhasil disimpan.');
     }
+
+    public function updatePhoto(Request $request)
+{
+    $request->validate([
+        'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+    ]);
+
+    $anggota = Anggota::find(Auth::user()->id);
+
+    if ($request->hasFile('photo')) {
+        if ($anggota->images && file_exists('images/profile/' . $anggota->images)) {
+            unlink(public_path('images/profile/' . $anggota->images));
+        }
+
+        $fileName = time() . '.' . $request->photo->extension();
+        $request->photo->move('images/profile', $fileName);
+        
+        $anggota->images = $fileName;
+        $anggota->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Photo updated successfully'
+        ]);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'Failed to update photo'
+    ]);
+}
     /**
      * Show the form for creating a new resource.
      *
