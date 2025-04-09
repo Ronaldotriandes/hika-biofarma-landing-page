@@ -4,11 +4,7 @@
 
     <div class="container">
         <div class="row" style="justify-content: center; padding-top:200px">
-
-        <!-- Recent Posts Section -->
-
-            <livewire:berita.list-berita kategori='All'/>
-            <livewire:berita.list-berita kategori='Sosial'/>
+            <livewire:berita.list-berita :kategori='$kategori'/>
         </div>
     </div>
 

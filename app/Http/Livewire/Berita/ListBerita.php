@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Berita;
 use Livewire\Component;
 use App\Models\Berita;
 use App\Models\Kategori_berita;
+use Illuminate\Support\Facades\Auth;
 
 class ListBerita extends Component
 {
@@ -14,9 +15,9 @@ class ListBerita extends Component
     public $limit;
     public function mount($kategori, $limit = null)
     {
-        $this->loadBeritas();
         $this->kategori = $kategori;
         $this->limit = $limit;
+        $this->loadBeritas();
     }
 
     public function loadBeritas()
@@ -28,16 +29,15 @@ class ListBerita extends Component
                 ->orWhere('konten', 'like', '%' . $this->search . '%');
         })
         ->where(function($query) {
-            if (!auth()->check()) {
+            if (!Auth()->check()) {
                 $query->where('is_publish_member', 0);
-            } else {
-                $query->where('is_publish_member', 1);
-            }
+            } 
         });
 
-        if ($this->kategori !== 'All') {
-            $query->where('id_kategori_berita', $this->kategori);
+        if ($kategori !== 'Berita') {
+            $query->where('id_kategori_berita', $kategori);
         }
+        
         if ($this->limit) {
             $query->limit($this->limit);
         }

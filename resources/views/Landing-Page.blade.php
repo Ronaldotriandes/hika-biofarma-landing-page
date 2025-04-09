@@ -69,7 +69,7 @@
     <!-- Recent Posts Section -->
 
     <livewire:berita.list-berita kategori='All' limit='3'/>
-    <livewire:berita.list-berita kategori='Sosial'/>
+    <livewire:berita.list-berita kategori='Sosial' limit='3'/>
 
 
     <!-- Contact Section -->

@@ -31,7 +31,7 @@ class BeritaController extends Controller
     public function getKategoriBerita($kategori)
     {
         //
-        return view('Berita.Berita-Kategori');
+        return view('Berita.Berita-Kategori',['kategori'=>$kategori]);
     }
     /**
      * Show the form for creating a new resource.
