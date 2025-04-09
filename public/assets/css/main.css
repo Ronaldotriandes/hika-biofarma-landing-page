@@ -160,7 +160,6 @@ h6 {
   --heading-color: #ffffff;
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 20px 0;
   transition: all 0.5s;
   z-index: 997;
   --background-color: rgba(42, 44, 57, 0.9);
@@ -384,7 +383,6 @@ h6 {
 
   .navmenu ul {
     margin-left: auto !important;
-    height: 50%;
     background-color: #1D1D1D !important;
     /* Semi-transparent background */
     backdrop-filter: blur(10px) !important;
@@ -657,7 +655,6 @@ h6 {
 --------------------------------------------------------------*/
 .page-title {
   color: var(--default-color);
-  background-color: var(--background-color);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -668,7 +665,6 @@ h6 {
 
 .page-title:before {
   content: "";
-  background-color: color-mix(in srgb, var(--background-color), transparent 50%);
   position: absolute;
   inset: 0;
 }

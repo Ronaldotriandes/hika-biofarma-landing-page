@@ -20,7 +20,8 @@
         @foreach ($komentars as $komentar)
                 <div id="comment-{{$loop->index}}" class="comment">
                     <div class="d-flex">
-                        <div class="comment-img"><img src="/assets/img/blog/comments-1.jpg" alt=""  class="rounded-circle"></div>
+                        <div class="comment-img"><img src="/images/profile/{{$komentar->anggota->images ? $komentar->anggota->images : 'default.jpg'}}" 
+                        onerror="this.src='/images/profile/default.jpg'"  alt=""  class="rounded-circle"></div>
                             <div class="comment-content position-relative">
                             <h5 style="font-weight:bold">{{$komentar->anggota->nama_lengkap}}
                                 @if(Auth::check())

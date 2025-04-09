@@ -14,7 +14,9 @@
             <form id="photoForm" action="{{ route('profile.photo.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="position-relative mb-4">
-                  <img src="/images/profile/{{$anggota->images}}" alt="Profile Picture" 
+                  <img src="/images/profile/{{$anggota->images ? $anggota->images : 'default.jpg'}}" 
+                  onerror="this.src='/images/profile/default.jpg'" 
+                   alt="Profile Picture" 
                        id="preview-image"
                        class="img-fluid rounded-circle mb-3" 
                        style="width: 200px; height: 200px; object-fit: cover;">

@@ -58,21 +58,22 @@
             @endif
             <li><a href="/">Home</a></li>
             <li><a href="/profile-hika">Profile HIKA</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="/pengurus-hika">Pengurus HIKA</a></li>
             @if(Auth::check())
                 <li class="dropdown left-dropdown">
                     <a href="#"  class="" >
                     <div style="display:flex; align-items:center" >
                             <span style=" margin-right:10px">{{Auth::user()->nama_lengkap}}</span>
-                            <img src="/images/ilyas Foto 1.png" alt="User" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
+                            <img src="/images/profile/{{Auth::user()->images ? Auth::user()->images : 'default.jpg'}}" 
+                            onerror="this.src='/images/profile/default.jpg'" 
+                            alt="User" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
                             <i class="bi bi-chevron-down toggle-dropdown ms-1"></i>
                         </div>
                         
                     </a>
                     <ul class="left-dropdown-menu">
                         <li><a href="/">Home</a></li>
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="/profile">Settings</a></li>
                         <li><a href="{{ route('logout') }}">Log Out</a></li>
                     </ul>
                 </li>

@@ -2,7 +2,7 @@
 @extends('Layout/Master')
     @section('content')
 
-    <div class="page-title " style="height: 200px;">
+    <div class="page-title dark-background" style="height: 200px;background-color:rgba(42, 44, 57, 0.9)">
       <div class="container position-relative">
         <h3><span id="welcome-text"></span></h3>
         @if(!Auth::check())
