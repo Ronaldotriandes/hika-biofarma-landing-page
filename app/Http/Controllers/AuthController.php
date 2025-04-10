@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anggota;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+
 class AuthController extends Controller
 {
     /**
@@ -22,27 +24,24 @@ class AuthController extends Controller
     {
         try {
             $credential = $request->validate([
-                'email'=>'required|email:rfc,dns',
-                'password'=>'required',
+                'email' => 'required|email:rfc,dns',
+                'password' => 'required',
             ]);
 
             $credential['email'] = hash('sha256', $credential['email']);
             $user = Anggota::where('hash_email', $credential['email'])
-                    ->whereNull('deleted_at')
-                    ->where('is_active',true)
-                    ->first();
+                ->whereNull('deleted_at')
+                ->where('is_active', true)
+                ->first();
             if (!$user || !Auth::attempt(['hash_email' => $credential['email'], 'password' => $credential['password']])) {
-                return back()->with('loginError','Email atau password salah, atau akses tidak diizinkan.');
+                return back()->with('error', 'Email atau password salah, atau akses tidak diizinkan.');
             }
 
             $request->session()->regenerate();
-            return back()->with('success','Login berhasil');
-
-        } catch (\Throwable $th) {
-            dd($th);
+            return back()->with('success', 'Login berhasil');
+        } catch (Exception $th) {
+            return back()->with('error', 'Login gagal, silahkan coba lagi.');
         }
-         
-
     }
 
     /**

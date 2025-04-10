@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Anggota;
 use App\Models\Aspirasi;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -23,14 +24,24 @@ class LandingController extends Controller
     }
     public function profile()
     {
+        try {
+            //code...
+            $anggota = Anggota::where('id', Auth::user()->id)->first();
+            return view('Profile', ['anggota' => $anggota]);
+        } catch (Exception $th) {
+            return redirect()->back()->with('error', 'Gagal mengambil data anggota.');
+        }
         //
-        $anggota = Anggota::where('id', Auth::user()->id)->first();
-        return view('Profile', ['anggota' => $anggota]);
     }
     public function pengurushika()
     {
-        $pengurus = Anggota::with('strukturOrganisasi:id,nama_jabatan')->whereNotNull('id_struktur_organisasi')->orderBy('id', 'asc')->get();
-        return view('Pengurus-Hika', ['pengurus' => $pengurus]);
+        try {
+            //code...
+            $pengurus = Anggota::with('strukturOrganisasi:id,nama_jabatan')->whereNotNull('id_struktur_organisasi')->orderBy('id', 'asc')->get();
+            return view('Pengurus-Hika', ['pengurus' => $pengurus]);
+        } catch (Exception $th) {
+            return redirect()->back()->with('error', 'Gagal mengambil data pengurus.');
+        }
     }
 
     public function formregistrasi()
@@ -41,45 +52,50 @@ class LandingController extends Controller
 
     public function aspirasi(Request $request)
     {
-        //
-        Aspirasi::create([
-            'aspirasi' => $request->message,
-            'user_id' => Auth::user()->id,
-        ]);
+        try {
+            Aspirasi::create([
+                'aspirasi' => $request->message,
+                'user_id' => Auth::user()->id,
+            ]);
 
-        return redirect()->back()->with('success', 'Aspirasi berhasil disimpan.');
+            return redirect()->back()->with('success', 'Aspirasi berhasil disimpan.');
+            //code...
+        } catch (Exception $th) {
+            //throw $th;
+            return redirect()->back()->with('error', 'Gagal menyimpan aspirasi.');
+        }
     }
 
     public function updatePhoto(Request $request)
-{
-    $request->validate([
-        'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-    ]);
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
 
-    $anggota = Anggota::find(Auth::user()->id);
+        $anggota = Anggota::find(Auth::user()->id);
 
-    if ($request->hasFile('photo')) {
-        if ($anggota->images && file_exists('images/profile/' . $anggota->images)) {
-            unlink(public_path('images/profile/' . $anggota->images));
+        if ($request->hasFile('photo')) {
+            if ($anggota->images && file_exists('images/profile/' . $anggota->images)) {
+                unlink(public_path('images/profile/' . $anggota->images));
+            }
+
+            $fileName = time() . '.' . $request->photo->extension();
+            $request->photo->move('images/profile', $fileName);
+
+            $anggota->images = $fileName;
+            $anggota->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Photo updated successfully'
+            ]);
         }
 
-        $fileName = time() . '.' . $request->photo->extension();
-        $request->photo->move('images/profile', $fileName);
-        
-        $anggota->images = $fileName;
-        $anggota->save();
-
         return response()->json([
-            'success' => true,
-            'message' => 'Photo updated successfully'
+            'success' => false,
+            'message' => 'Failed to update photo'
         ]);
     }
-
-    return response()->json([
-        'success' => false,
-        'message' => 'Failed to update photo'
-    ]);
-}
     /**
      * Show the form for creating a new resource.
      *

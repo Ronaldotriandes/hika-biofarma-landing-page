@@ -60,6 +60,8 @@
   <script src="/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/assets/vendor/toastify/toastify.js"></script>
+<script src="/assets/js/extensions/toastify.js"></script>
 
   <!-- Main JS File -->
   <script src="/assets/js/main.js"></script>
@@ -84,5 +86,27 @@
       }, 300);
     }
   });
+  function showToast(message, type) {
+        const bgColor = type === 'success' ? '#4fbe87' : '#ff5c5c';
+
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: bgColor,
+            stopOnFocus: true,
+            onClick: function () { }
+        }).showToast();
+    }
+
+    @if(session('success'))
+        showToast("{{ session('success') }}", 'success');
+    @endif
+
+    @if(session('error'))
+        showToast("{{ session('error') }}", 'error');
+    @endif
 </script>
 </html>

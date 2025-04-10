@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" 
-                        wire:model.debounce.300ms="search" 
+                        wire:model.debounce.1000ms="search" 
                         class="form-control" 
                         placeholder="Search news...">
                 </div>
