@@ -13,6 +13,7 @@ class ListBerita extends Component
     public $beritas;
     public $kategori;
     public $limit;
+    public $list_kategori = [];
     public function mount($kategori, $limit = null)
     {
         $this->kategori = $kategori;
@@ -23,6 +24,7 @@ class ListBerita extends Component
     public function loadBeritas()
     {
         $kategori = $this->kategori == 'All' ? 'Berita' : Kategori_berita::where('nama_kategori', $this->kategori)->first()?->id;
+        $this->list_kategori = Kategori_berita::all();
         $query = Berita::where('is_publish', 1)
         ->where(function($query) {
             $query->where('judul', 'like', '%' . $this->search . '%')
