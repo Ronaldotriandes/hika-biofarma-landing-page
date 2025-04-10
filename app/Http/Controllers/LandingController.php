@@ -140,14 +140,14 @@ class LandingController extends Controller
         $anggota = Anggota::find(Auth::user()->id);
 
         if ($request->hasFile('photo')) {
-            if ($anggota->images && file_exists('images/profile/' . $anggota->images)) {
-                unlink(public_path('images/profile/' . $anggota->images));
+            if ($anggota->images && file_exists($anggota->images)) {
+                unlink(public_path($anggota->images));
             }
 
             $fileName = time() . '.' . $request->photo->extension();
             $request->photo->move('images/profile', $fileName);
 
-            $anggota->images = $fileName;
+            $anggota->images = 'images/profile/' . $fileName;
             $anggota->save();
 
             return response()->json([

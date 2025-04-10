@@ -53,7 +53,8 @@
         <nav id="navmenu" class="navmenu">
             <ul style="justify-items: flex-end;">
             @if(Auth::check())
-            <li class="header-dropdown-mob" style="padding-right:20px; padding-left:20px"><img src="/images/ilyas Foto 1.png" alt="User" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover; margin-right: 5px;"></li>
+            <li class="header-dropdown-mob" style="padding-right:20px; padding-left:20px"> <img src="/{{Auth::user()->images ? Auth::user()->images : 'images/profile/default.jpg'}}" 
+            onerror="this.src='/images/profile/default.jpg'" alt="User" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover; margin-right: 5px;"></li>
             <li class="header-dropdown-mob"><a href="#">{{Auth::user()->nama_lengkap}}</a></li>
             <li  class="header-dropdown-mob"><a href="#" style="color:#55A9B6">{{Auth::user()->role}}</a></li>
             @endif
@@ -65,7 +66,7 @@
                     <a href="#"  class="" >
                     <div style="display:flex; align-items:center" >
                             <span style=" margin-right:10px">{{Auth::user()->nama_lengkap}}</span>
-                            <img src="/images/profile/{{Auth::user()->images ? Auth::user()->images : 'default.jpg'}}" 
+                            <img src="/{{Auth::user()->images ? Auth::user()->images : 'images/profile/default.jpg'}}" 
                             onerror="this.src='/images/profile/default.jpg'" 
                             alt="User" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
                             <i class="bi bi-chevron-down toggle-dropdown ms-1"></i>

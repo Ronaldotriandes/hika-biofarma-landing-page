@@ -26,7 +26,7 @@
                 <div class="carousel-item {{$firstItem ? 'active' : ''}}">
                     <div class="carousel-container">
                         <div class="text-center mb-4 banner-container">
-                            <img src="{{ config('services.cms.url') }}/images/berita/{{$ber->banner_image}}" alt="Slide Image" class="img-fluid animate__animated animate__fadeIn banner-image">
+                            <img src="{{ config('services.cms.url') }}/{{$ber->banner_image}}" alt="Slide Image" class="img-fluid animate__animated animate__fadeIn banner-image">
                         </div>
                         <h2 class="animate__animated animate__fadeInDown" style="margin-bottom:0px">{{$ber->judul}}</h2>
                         <a href="{{ route('getDetailBerita', ['kategori' => $ber->kategori_berita, 'slug' => $ber->slug]) }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>

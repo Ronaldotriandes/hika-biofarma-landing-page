@@ -20,7 +20,7 @@
         @foreach ($komentars as $komentar)
                 <div id="comment-{{$loop->index}}" class="comment">
                     <div class="d-flex">
-                        <div class="comment-img"><img src="/images/profile/{{$komentar->anggota->images ? $komentar->anggota->images : 'default.jpg'}}" 
+                        <div class="comment-img"><img src="/{{$komentar->anggota->images ? $komentar->anggota->images : 'images/profile/default.jpg'}}" 
                         onerror="this.src='/images/profile/default.jpg'"  alt=""  class="rounded-circle"></div>
                             <div class="comment-content position-relative">
                             <h5 style="font-weight:bold">{{$komentar->anggota->nama_lengkap}}
@@ -38,7 +38,8 @@
                     @foreach ($komentar->childs as $child)
                         <div id="comment-reply-{{$komentar->id}}-{{$child->id}}" class="comment comment-reply">
                             <div class="d-flex">
-                            <div class="comment-img"><img src="/assets/img/blog/comments-4.jpg" alt=""  class="rounded-circle"></div>
+                            <div class="comment-img"><img src="/{{$child->anggota->images ? $child->anggota->images : 'images/profile/default.jpg'}}" 
+                            onerror="this.src='/images/profile/default.jpg'" alt=""  class="rounded-circle"></div>
                             <div>
                                 <h5><a href="">{{$child->anggota->nama_lengkap}}</a> 
                                 <!-- <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5> -->
