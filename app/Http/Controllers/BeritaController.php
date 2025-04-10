@@ -23,6 +23,7 @@ class BeritaController extends Controller
     {
         //
         $berita = Berita::with('komentars')->where('slug', $slug)->first();
+        $berita->support_image = json_decode($berita->support_image);
         $berita->dibaca = $berita->dibaca + 1;
         $berita->save();
     

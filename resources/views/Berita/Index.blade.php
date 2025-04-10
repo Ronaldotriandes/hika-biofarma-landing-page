@@ -49,6 +49,30 @@
                 </div>
                 <div class="content">
                 {!! $berita->konten !!}
+                @if ($berita->support_image)
+                <div class="image-slider mt-4" style="max-width: 300px; margin: 0 auto;">
+                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach($berita->support_image as $key => $image)
+                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                    <img src="{{ config('services.cms.url') }}/{{$image}}" class="d-block w-100" alt="Support Image">
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev" style="left: -50px;">
+                            <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); padding: 5px; border-radius: 50%;"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next" style="right: -50px;">
+                            <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); padding: 5px; border-radius: 50%;"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <div class="text-center mt-2">
+                      <span>Supporting Images</span>
+                    </div>
+                </div>
+                @endif
                 <livewire:berita.likes :databerita="$berita->id" />
                 </div>
               </article>
