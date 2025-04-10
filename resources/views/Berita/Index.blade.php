@@ -35,7 +35,7 @@
               <article class="article">
 
                 <div class="post-img" style="justify-self:center;">
-                <img src="{{ config('services.cms.url') }}/images/berita/{{$berita->banner_image}}" alt="" class="img-fluid" style="width: 100%; height: auto; object-fit: cover;">
+                <img src="{{ config('services.cms.url') }}/{{$berita->banner_image}}" alt="" class="img-fluid" style="width: 100%; height: auto; object-fit: cover;">
                 </div>
 
                 <h2 class="title" style="padding:10px">{{$berita->judul}}</h2>

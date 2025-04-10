@@ -43,7 +43,7 @@
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-member">
                         <div class="member-img">
-                        <img src="/images/profile/{{$peng->images ? $peng->images : 'default.jpg'}}" 
+                        <img src="/{{$peng->images ? $peng->images : 'images/profile/default.jpg'}}" 
                         onerror="this.src='/images/profile/default.jpg'" 
                          class="img-fluid" alt="">
                         <div class="social">

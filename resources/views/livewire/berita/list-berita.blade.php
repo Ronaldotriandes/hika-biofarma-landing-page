@@ -35,7 +35,7 @@
                     <div class="col-xl-4 col-md-6" data-aos-delay="100">
                         <article class="article-container">
                             <div class="post-img">
-                                <img src="{{ config('services.cms.url') }}/images/berita/{{$ber->banner_image}}" alt="" class="img-fluid">
+                                <img src="{{ config('services.cms.url') }}/{{$ber->banner_image}}" alt="" class="img-fluid">
                             </div>
                             <h2 class="title">
                                 <a href="{{ url('/berita/'.$ber->kategori_berita->nama_kategori.'/'.$ber->slug) }}">{{$ber->judul}}</a>
