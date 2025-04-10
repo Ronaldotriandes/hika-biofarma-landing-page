@@ -44,9 +44,9 @@
                   <ul>
                     <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time datetime="2020-01-01">{{  Carbon\Carbon::parse($berita->created_at)->format('d-m-Y')}}</time></li>
                     <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> {{count($berita->komentars)}} komentar</li>
+                    <li class="d-flex align-items-center"><i class="bi bi-tag me-1"></i>{{$berita->kategori_berita->nama_kategori}}</li>
                   </ul>
                 </div>
-
                 <div class="content">
                 {!! $berita->konten !!}
                 <livewire:berita.likes :databerita="$berita->id" />
