@@ -65,7 +65,7 @@
                     <a href="#"  class="" >
                     <div style="display:flex; align-items:center" >
                             <span style=" margin-right:10px">{{Auth::user()->nama_lengkap}}</span>
-                            <img src="/images/profile/{{Auth::user()->images ? Auth::user()->images : 'default.jpg'}}" 
+                            <img src="{{Auth::user()->images ? config('services.cms.url').Auth::user()->images : 'default.jpg'}}" 
                             onerror="this.src='/images/profile/default.jpg'" 
                             alt="User" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
                             <i class="bi bi-chevron-down toggle-dropdown ms-1"></i>

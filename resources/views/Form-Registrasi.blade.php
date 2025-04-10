@@ -25,7 +25,7 @@
                     <h2>Form Registrasi</h2>
                 </div>
                 <div class="form-section">
-                    <form action="{{ route('form-registrasi') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('post-form-registrasi') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <!-- Data Pribadi -->
                         <h4 class="section-header">Data Pribadi</h4>
@@ -41,16 +41,28 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label required">Tanggal Lahir</label>
                                 <input type="date" class="form-control" name="tanggal_lahir" required>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label required">Jenis Kelamin</label>
                                 <select class="form-control" name="jenis_kelamin" required>
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="L">Laki-laki</option>
                                     <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label required">Agama</label>
+                                <select class="form-control" name="agama" required>
+                                    <option value="">Pilih Agama</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
                                 </select>
                             </div>
                         </div>
@@ -70,28 +82,70 @@
                                 <input type="email" class="form-control" name="email_pribadi" required>
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hobbi</label>
+                            <textarea class="form-control" name="hobby" rows="3"></textarea>
+                        </div>
 
                         <!-- Data Pekerjaan -->
                         <h4 class="section-header">Data Pekerjaan</h4>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label required">NIK (8 Digit)</label>
-                                <input type="text" class="form-control" name="nik" maxlength="8" required>
+                                <label class="form-label required">NIP</label>
+                                <input type="text" class="form-control" name="nip" maxlength="12" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label required">Unit Kerja</label>
-                                <input type="text" class="form-control" name="unit_kerja" required>
+                                <label class="form-label required">Departemen Kerja</label>
+                                <input type="text" class="form-control" name="departemen_kerja" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label required">NPK</label>
+                                <input type="text" class="form-control" name="npk" maxlength="12" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label required">Direktorat Kerja</label>
+                                <input type="text" class="form-control" name="direktorat_kerja" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Nomor Ekstensi</label>
-                                <input type="text" class="form-control" name="nomor_ekstensi">
+                                <label class="form-label">Tanggal Pensiun</label>
+                                <input type="date" class="form-control" name="tanggal_pensiun">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label required">Email Kantor</label>
                                 <input type="email" class="form-control" name="email_kantor" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label required">Status Pegawai</label>
+                                <select class="form-control" name="status_pegawai" required>
+                                    <option value="">Pilih Status Pegawai</option>
+                                    <option value="Tetap">Tetap</option>
+                                    <option value="Kontrak">Kontrak</option>
+                                    <option value="PKWT">PKWT</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label required">Status Bekerja</label>
+                                <select class="form-control" name="status_bekerja" required>
+                                    <option value="">Pilih Status Bekerja</option>
+                                    <option value="Masih Bekerja">Masih Bekerja</option>
+                                    <option value="Pensiun">Pensiun</option>
+                                    <option value="Mengundurkan Diri">Mengundurkan Diri</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label required">Status Anggota</label>
+                                <select class="form-control" name="status_anggota" required>
+                                    <option value="">Pilih Status Anggota</option>
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="non-Aktif">non-Aktif</option>    
+                                </select>
                             </div>
                         </div>
 
@@ -113,6 +167,11 @@
                         <div class="mb-3">
                             <label class="form-label required">Upload Foto</label>
                             <input type="file" class="form-control" name="foto" accept="image/*" required>
+                        </div>
+                        <h4 class="section-header">Password</h4>
+                        <div class="mb-3">
+                            <label class="form-label required">Password</label>
+                            <input type="password" class="form-control" name="password" required>
                         </div>
                         <div class="mb-3">
                             <div class="form-check">

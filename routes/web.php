@@ -31,3 +31,4 @@ Route::post('/profile/photo/update', 'LandingController@updatePhoto')->name('pro
 
 Route::get('/pengurus-hika', 'LandingController@pengurusHika')->name('pengurus-hika');
 Route::get('/form-registrasi', 'LandingController@formregistrasi')->name('form-registrasi');
+Route::post('/post-form-registrasi', 'LandingController@Postformregistrasi')->name('post-form-registrasi');

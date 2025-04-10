@@ -49,6 +49,71 @@ class LandingController extends Controller
         //
         return view('Form-Registrasi');
     }
+    public function Postformregistrasi(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'nama_lengkap' => 'required|string|max:255',
+                'tempat_lahir' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|in:L,P',
+                'agama' => 'required|string',
+                'alamat_domisili' => 'required|string',
+                'nomor_telepon' => 'required|string',
+                'email_pribadi' => 'required|email',
+                'hobby' => 'nullable|string',
+                'nip' => 'required|string|max:12',
+                'departemen_kerja' => 'required|string',
+                'npk' => 'required|string|max:12',
+                'direktorat_kerja' => 'required|string',
+                'tanggal_pensiun' => 'nullable|date',
+                'email_kantor' => 'required|email',
+                'status_pegawai' => 'required|string',
+                'status_bekerja' => 'required|string',
+                'status_anggota' => 'required|string',
+                'komunitas' => 'nullable|string',
+                'pengalaman_organisasi' => 'nullable|string',
+                'serikat_pekerja_lain' => 'nullable|string',
+                'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'password' => 'required|string|min:6'
+            ]);
+            $fileName = null;
+            if ($request->hasFile('foto')) {
+                $fileName = time() . '.' . $request->foto->extension();
+                $request->foto->move('images/profile', $fileName);
+            }
+            $anggota = Anggota::create([
+                'nama_lengkap' => $validated['nama_lengkap'],
+                'tempat_lahir' => $validated['tempat_lahir'],
+                'tanggal_lahir' => $validated['tanggal_lahir'],
+                'jenis_kelamin' => $validated['jenis_kelamin'],
+                'alamat' => $validated['alamat_domisili'],
+                'agama' => $validated['agama'],
+                'no_hp' => $validated['nomor_telepon'],
+                'email_pribadi' => $validated['email_pribadi'],
+                'nip' => $validated['nip'],
+                'npk' => $validated['npk'],
+                'departemen_kerja' => $validated['departemen_kerja'],
+                'direktorat_kerja' => $validated['direktorat_kerja'],
+                'email_kantor' => $validated['email_kantor'],
+                'role' => 'non-Member',
+                'status_pegawai' => $validated['status_pegawai'],
+                'status_bekerja' => $validated['status_bekerja'],
+                'status_anggota' => $validated['status_anggota'],
+                'komunitas' => $validated['komunitas'],
+                'pengalaman_organisasi' => $validated['pengalaman_organisasi'],
+                'serikat_lain' => $validated['serikat_pekerja_lain'],
+                'is_active' => false,
+                'is_admin' => false,
+                'images' => 'assets/images/faces/2.jpg',
+                'password' => Hash::make(trim($validated['password'])), // Using last 4 digits of NIK as default password
+            ]);
+            return redirect('/')->with('success', 'Registrasi berhasil! Silahkan tunggu persetujuan dari admin.');
+        } catch (Exception $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
 
     public function aspirasi(Request $request)
     {

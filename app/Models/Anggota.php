@@ -11,7 +11,8 @@ use App\Casts\AnggotaEncdec;
 
 class Anggota extends Authenticatable
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+    protected $guarded = ['id'];
     protected $casts = [
         'email_pribadi' => \App\Casts\Anggota\AnggotaEncdec::class,
         'email_kantor' => \App\Casts\Anggota\AnggotaEncdec::class,
@@ -20,13 +21,14 @@ class Anggota extends Authenticatable
         'no_hp' => \App\Casts\Anggota\AnggotaEncdec::class,
         'tanggal_lahir' => \App\Casts\Anggota\AnggotaEncdec::class,
     ];
-    
-    
+
+
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->setTimezone('Asia/Jakarta');
     }
-    public function strukturOrganisasi() {
+    public function strukturOrganisasi()
+    {
         return $this->belongsTo(StrukturOrganisasi::class, 'id_struktur_organisasi');
     }
     public function setNipAttribute($value)
